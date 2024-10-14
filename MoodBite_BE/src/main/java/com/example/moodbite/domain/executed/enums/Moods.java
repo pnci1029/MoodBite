@@ -1,4 +1,4 @@
-package com.example.moodbite.domain.mood;
+package com.example.moodbite.domain.executed.enums;
 
 /**
  감정들..
