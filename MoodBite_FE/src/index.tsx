@@ -5,7 +5,7 @@ import reportWebVitals from './reportWebVitals';
 import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {store} from "./slice";
-import {Test} from "./components/test";
+import {Main} from "./components/common/Main";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -15,7 +15,7 @@ root.render(
         <Provider store={store}>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Test/>}>
+                    <Route path="/" element={<Main/>}>
                     </Route>
                 </Routes>
             </BrowserRouter>
