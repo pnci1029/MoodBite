@@ -1,0 +1,119 @@
+@import "common/variables";
+
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #f5f5f5;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.menu {
+  display: flex;
+  align-items: center;
+}
+
+.hamburgerMenu {
+  margin-left: 10px;
+  background: none;
+  border: none;
+  font-size: 16px;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-around;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.category {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.category li {
+  margin: 0 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.mainContent {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.mapSection {
+  flex: 1;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.map {
+  width: 100%;
+  height: 200px;
+  background-color: #ccc;
+  text-align: center;
+  line-height: 200px;
+  font-size: 18px;
+}
+
+.recommendSection {
+  flex: 1;
+  background-color: #eee;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.recommendTitle {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.image {
+  width: 100%;
+  height: 150px;
+  background-color: #ccc;
+  text-align: center;
+  line-height: 150px;
+  font-size: 18px;
+}
+
+.components {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: #fff;
+}
+
+.component1, .component2 {
+  width: 45%;
+  height: 100px;
+  background-color: #ccc;
+  text-align: center;
+  line-height: 100px;
+  font-size: 16px;
+}
