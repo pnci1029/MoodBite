@@ -6,6 +6,8 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {Provider} from 'react-redux';
 import {store} from "./slice";
 import {Main} from "./components/common/Main";
+import {TestExecuted} from "./components/test/TestExecuted";
+import App from "./App";
 
 const container = document.getElementById("root")!;
 const root = createRoot(container);
@@ -15,7 +17,9 @@ root.render(
         <Provider store={store}>
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<Main/>}>
+                    <Route path="/" element={<App/>}>
+                        <Route path="" element={<Main/>} />
+                        <Route path="test" element={<TestExecuted/>} />
                     </Route>
                 </Routes>
             </BrowserRouter>
