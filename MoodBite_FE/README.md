@@ -7,6 +7,7 @@
     yarn add react-router-dom
     yarn add @reduxjs/toolkit
     yarn add sass
+    yarn add lucide-react
 
     
 ````
