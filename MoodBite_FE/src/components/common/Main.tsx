@@ -1,9 +1,24 @@
-import style from "../../style/testExecuted.module.scss";
-import React, { useState } from 'react';
-import { Menu, X, MapPin, Heart, User } from 'lucide-react';
+import React, {useState} from 'react';
+import {Heart, MapPin, Menu, User, X} from 'lucide-react';
+import style from "../../style/main.module.scss";
+import {Test} from "../test/Test";
 
 export function Main() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [showTest, setShowTest] = useState(false);
+
+    const handleTestComplete = (score: number) => {
+        // 테스트 완료 후의 로직을 여기에 구현
+        console.log('Test score:', score);
+        // 예: 다음 페이지로 이동하거나, 점수를 저장하거나 등
+    };
+
+    if (showTest) {
+        return <Test
+            onBack={() => setShowTest(false)}
+            onNext={handleTestComplete}
+        />;
+    }
 
     return (
         <div className={style.container}>
@@ -22,33 +37,15 @@ export function Main() {
 
             {/* 메인 콘텐츠 */}
             <main className={style.mainContent}>
-                {/* 기분 선택 섹션 */}
-                <section className={style.moodSection}>
-                    <h2 className={style.sectionTitle}>지금 당신의 기분은?</h2>
-                    <div className={style.moodGrid}>
-                        <button className={style.moodButton}>😊 행복해요</button>
-                        <button className={style.moodButton}>😔 우울해요</button>
-                        <button className={style.moodButton}>😫 피곤해요</button>
-                        <button className={style.moodButton}>😡 화나요</button>
-                        <button className={style.moodButton}>🤔 고민중이에요</button>
-                        <button className={style.moodButton}>🥳 신나요</button>
-                    </div>
-                </section>
-
-                {/* 추천 음식 섹션 */}
-                <section className={style.foodSection}>
-                    <h2 className={style.sectionTitle}>이런 음식은 어떠세요?</h2>
-                    <div className={style.foodCards}>
-                        <div className={style.foodCard}>
-                            <div className={style.foodImage}></div>
-                            <div className={style.foodInfo}>
-                                <h3>따뜻한 국밥</h3>
-                                <p>피곤한 당신을 위한 든든한 한 끼</p>
-                            </div>
-                        </div>
-                        {/* 추가 음식 카드들... */}
-                    </div>
-                </section>
+                <div className={style.homeContent}>
+                    <h2 className={style.mainTitle}>오늘 뭐먹지?</h2>
+                    <button
+                        className={style.recommendButton}
+                        onClick={() => setShowTest(true)}
+                    >
+                        내 기분에 맞는 음식 추천받기!
+                    </button>
+                </div>
             </main>
 
             {/* 하단 네비게이션 */}
