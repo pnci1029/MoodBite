@@ -12,8 +12,24 @@ export function Test({ onBack, onNext }: TestProps) {
     const [isDragging, setIsDragging] = useState(false);
 
     const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setScore(Number(e.target.value));
+        switch (testStep) {
+            case TestStep.STEP1_TIREDNESS:
+                return setTiredScore(Number(e.target.value));
+            case TestStep.STEP2_ANGER:
+                return setAngerScore(Number(e.target.value));
+
+        }
+
     };
+
+    const handleNextScore = (currentStep: TestStep) =>{
+        switch (currentStep) {
+            case TestStep.STEP1_TIREDNESS:
+                return setTestStep(TestStep.STEP2_ANGER);
+            case TestStep.STEP2_ANGER:
+                return setTestStep(TestStep.STEP3_NERVOUS);
+        }
+    }
 
     return (
         <div className={style.container}>
