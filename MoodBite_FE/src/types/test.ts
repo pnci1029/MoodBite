@@ -1,0 +1,5 @@
+export enum TestStep{
+    STEP1_TIREDNESS = "STEP1_TIREDNESS",
+    STEP2_ANGER = "STEP2_ANGER",
+    STEP3_NERVOUS = "STEP3_NERVOUS",
+}
