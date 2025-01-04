@@ -1,15 +1,14 @@
-package com.example.moodbite.api;
+package com.example.moodbite.api.test.controller;
 
 import com.example.moodbite.api.executed.dto.ChatRequest;
 import com.example.moodbite.api.executed.dto.ChatResponse;
+import com.example.moodbite.api.test.service.TestService;
 import com.example.moodbite.config.OpenAiConfig;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 
@@ -18,12 +17,21 @@ import org.springframework.web.client.RestTemplate;
 public class TestController {
 
     private final OpenAiConfig openAiConfig;
+    private final TestService testService;
 
     @Value("${openai.model}")
     private String model;
 
     @Value("${openai.api.url}")
     private String url;
+
+    @PostMapping("/result")
+    public String getTestResult(
+            @RequestBody
+    ) {
+        testService.getResult();
+        return "";
+    }
 
 
     @GetMapping("/")
