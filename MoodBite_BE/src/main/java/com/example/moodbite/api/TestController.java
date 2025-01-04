@@ -18,8 +18,6 @@ import org.springframework.web.client.RestTemplate;
 public class TestController {
 
     private final OpenAiConfig openAiConfig;
-    @Value("${openai.api.key}")
-    private String apiKey;
 
     @Value("${openai.model}")
     private String model;
