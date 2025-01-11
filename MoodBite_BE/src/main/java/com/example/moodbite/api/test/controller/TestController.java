@@ -25,13 +25,13 @@ public class TestController {
     @Value("${openai.api.url}")
     private String url;
 
-    @PostMapping("/result")
-    public String getTestResult(
-            @RequestBody
-    ) {
-        testService.getResult();
-        return "";
-    }
+//    @PostMapping("/result")
+//    public String getTestResult(
+//            @RequestBody
+//    ) {
+//        testService.getResult();
+//        return "";
+//    }
 
 
     @GetMapping("/")
