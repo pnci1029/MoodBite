@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/MoodBite.iml" filepath="$PROJECT_DIR$/.idea/MoodBite.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/com.example.MoodBite.main.iml" filepath="$PROJECT_DIR$/.idea/modules/com.example.MoodBite.main.iml" />
     </modules>
   </component>
 </project>
