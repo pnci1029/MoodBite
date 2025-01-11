@@ -1,8 +1,7 @@
 package com.example.moodbite.api.executed;
 
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-@Service @RequiredArgsConstructor
+@Service 
 public class TestExecutedService {
 }
