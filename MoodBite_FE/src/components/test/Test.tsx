@@ -35,6 +35,17 @@ export function Test({onBack, onNext}: TestProps) {
 
     };
 
+    const handlePrevScore = (currentStep: TestStep) => {
+        switch (currentStep) {
+            case TestStep.STEP2_ANGER:
+                return setTestStep(TestStep.STEP1_TIREDNESS);
+            case TestStep.STEP3_STRESS_LEVEL:
+                return setTestStep(TestStep.STEP2_ANGER);
+            case TestStep.STEP4_APPETITE_DEGREE:
+                return setTestStep(TestStep.STEP3_STRESS_LEVEL);
+        }
+    }
+
     const handleNextScore = (currentStep: TestStep) => {
         switch (currentStep) {
             case TestStep.STEP1_TIREDNESS:
@@ -47,6 +58,25 @@ export function Test({onBack, onNext}: TestProps) {
                 return setTestStep(TestStep.STEP4_APPETITE_DEGREE);
         }
     }
+
+    const renderButtons = (currentStep: TestStep) => (
+        <div className={style.buttonContainer}>
+            {currentStep !== TestStep.STEP1_TIREDNESS && (
+                <button
+                    className={style.prevButton}
+                    onClick={() => handlePrevScore(currentStep)}
+                >
+                    이전
+                </button>
+            )}
+            <button
+                className={style.nextButton}
+                onClick={() => handleNextScore(currentStep)}
+            >
+                다음
+            </button>
+        </div>
+    );
 
     return (
         <div className={style.container}>
@@ -103,12 +133,7 @@ export function Test({onBack, onNext}: TestProps) {
                             </div>
                         </div>
 
-                        <button
-                            className={style.nextButton}
-                            onClick={() => handleNextScore(TestStep.STEP1_TIREDNESS)}
-                        >
-                            다음
-                        </button>
+                        {renderButtons(TestStep.STEP1_TIREDNESS)}
                     </section>
                 </main>
             )}
@@ -152,12 +177,7 @@ export function Test({onBack, onNext}: TestProps) {
                             </div>
                         </div>
 
-                        <button
-                            className={style.nextButton}
-                            onClick={() => handleNextScore(TestStep.STEP2_ANGER)}
-                        >
-                            다음
-                        </button>
+                        {renderButtons(TestStep.STEP2_ANGER)}
                     </section>
                 </main>
             )}
@@ -201,12 +221,7 @@ export function Test({onBack, onNext}: TestProps) {
                             </div>
                         </div>
 
-                        <button
-                            className={style.nextButton}
-                            onClick={() => handleNextScore(TestStep.STEP4_APPETITE_DEGREE)}
-                        >
-                            다음
-                        </button>
+                        {renderButtons(TestStep.STEP3_STRESS_LEVEL)}
                     </section>
                 </main>
             )}
@@ -250,12 +265,7 @@ export function Test({onBack, onNext}: TestProps) {
                             </div>
                         </div>
 
-                        <button
-                            className={style.nextButton}
-                            onClick={() => handleNextScore(TestStep.STEP4_APPETITE_DEGREE)}
-                        >
-                            다음
-                        </button>
+                        {renderButtons(TestStep.STEP4_APPETITE_DEGREE)}
                     </section>
                 </main>
             )}
