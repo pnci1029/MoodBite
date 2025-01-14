@@ -2,7 +2,61 @@ import React, {useState} from 'react';
 import {ArrowLeft} from 'lucide-react';
 import style from "../../style/test.module.scss";
 import {TestStep} from "../../types/test";
+interface SliderLabel {
+    min: string;
+    mid: string;
+    max: string;
+}
 
+// Record 유틸리티 타입을 사용하여 타입 안전성 확보
+const sliderLabels: Record<TestStep, SliderLabel> = {
+    [TestStep.STEP1_TIREDNESS]: {
+        min: "전혀 피곤하지 않음",
+        mid: "보통",
+        max: "매우 피곤함"
+    },
+    [TestStep.STEP2_ANGER]: {
+        min: "전혀 예민하지 않음",
+        mid: "보통",
+        max: "매우 예민함"
+    },
+    [TestStep.STEP3_STRESS_LEVEL]: {
+        min: "스트레스 없음",
+        mid: "보통",
+        max: "스트레스 많음"
+    },
+    [TestStep.STEP4_APPETITE_DEGREE]: {
+        min: "전혀 안고픔",
+        mid: "보통",
+        max: "매우 고픔"
+    },
+    [TestStep.STEP5_LAST_MEAL_MENU]: {
+        min: "0",
+        mid: "50",
+        max: "100"
+    },
+    [TestStep.STEP6_LAST_MEAL_TIME]: {
+        min: "0",
+        mid: "50",
+        max: "100"
+    },
+    [TestStep.STEP7_ALLERGY]: {
+        min: "0",
+        mid: "50",
+        max: "100"
+    }
+};
+
+const defaultLabel: SliderLabel = {
+    min: "0",
+    mid: "50",
+    max: "100"
+};
+
+// 타입 안전한 getter 함수
+const getCurrentLabels = (step: TestStep): SliderLabel => {
+    return sliderLabels[step] || defaultLabel;
+};
 interface TestProps {
     onBack: () => void;
     onNext: (score: number) => void;
@@ -15,6 +69,48 @@ export function Test({onBack, onNext}: TestProps) {
     const [stressScore, setStressScore] = useState(50);
     const [appetiteScore, setAppetiteScore] = useState(50);
     const [isDragging, setIsDragging] = useState(false);
+
+    const getCurrentLabels = (step: TestStep) => {
+        return sliderLabels[step] || {min: "0", mid: "50", max: "100"};
+    };
+
+    const renderSlider = (step: TestStep, value: number) => {
+        const labels = getCurrentLabels(step);
+
+        return (
+            <div className={style.sliderContainer}>
+                <div className={style.sliderWrapper}>
+                    <input
+                        type="range"
+                        min="0"
+                        max="100"
+                        value={value}
+                        onChange={handleSliderChange}
+                        className={style.slider}
+                        onMouseDown={() => setIsDragging(true)}
+                        onMouseUp={() => setIsDragging(false)}
+                        onTouchStart={() => setIsDragging(true)}
+                        onTouchEnd={() => setIsDragging(false)}
+                    />
+                    <div className={style.sliderLabels}>
+                        <span className={style.minLabel}>{labels.min}</span>
+                        <span className={style.midLabel}>{labels.mid}</span>
+                        <span className={style.maxLabel}>{labels.max}</span>
+                    </div>
+                </div>
+
+                <div className={`${style.scoreDisplay} ${isDragging ? style.active : ''}`}>
+                    {value}
+                </div>
+
+                <div className={style.scoreIndicator}>
+                    <span className={style.indicatorText}>
+                        {value < 30 ? "낮음" : value < 70 ? "보통" : "높음"}
+                    </span>
+                </div>
+            </div>
+        );
+    };
 
     console.log(testStep)
     console.log(tiredScore)
@@ -100,39 +196,7 @@ export function Test({onBack, onNext}: TestProps) {
                         <h2 className={style.questionTitle}>
                             얼마나 피곤하신가요?
                         </h2>
-
-                        <div className={style.sliderContainer}>
-                            <div className={style.sliderWrapper}>
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="100"
-                                    value={tiredScore}
-                                    onChange={handleSliderChange}
-                                    className={style.slider}
-                                    onMouseDown={() => setIsDragging(true)}
-                                    onMouseUp={() => setIsDragging(false)}
-                                    onTouchStart={() => setIsDragging(true)}
-                                    onTouchEnd={() => setIsDragging(false)}
-                                />
-                                <div className={style.sliderLabels}>
-                                    <span>0</span>
-                                    <span>50</span>
-                                    <span>100</span>
-                                </div>
-                            </div>
-
-                            <div className={`${style.scoreDisplay} ${isDragging ? style.active : ''}`}>
-                                {tiredScore}
-                            </div>
-
-                            <div className={style.scoreDescription}>
-                                {tiredScore <= 30 && "컨디션이 좋으시네요!"}
-                                {tiredScore > 30 && tiredScore <= 70 && "적당히 피곤하시군요"}
-                                {tiredScore > 70 && "무슨일이 있나요..?"}
-                            </div>
-                        </div>
-
+                        {renderSlider(TestStep.STEP1_TIREDNESS, tiredScore)}
                         {renderButtons(TestStep.STEP1_TIREDNESS)}
                     </section>
                 </main>
@@ -145,38 +209,7 @@ export function Test({onBack, onNext}: TestProps) {
                             지금 예민한 상태인가요?
                         </h2>
 
-                        <div className={style.sliderContainer}>
-                            <div className={style.sliderWrapper}>
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="100"
-                                    value={angerScore}
-                                    onChange={handleSliderChange}
-                                    className={style.slider}
-                                    onMouseDown={() => setIsDragging(true)}
-                                    onMouseUp={() => setIsDragging(false)}
-                                    onTouchStart={() => setIsDragging(true)}
-                                    onTouchEnd={() => setIsDragging(false)}
-                                />
-                                <div className={style.sliderLabels}>
-                                    <span>0</span>
-                                    <span>50</span>
-                                    <span>100</span>
-                                </div>
-                            </div>
-
-                            <div className={`${style.scoreDisplay} ${isDragging ? style.active : ''}`}>
-                                {angerScore}
-                            </div>
-
-                            <div className={style.scoreDescription}>
-                                {angerScore <= 30 && "컨디션이 좋은가봐요!"}
-                                {angerScore > 30 && angerScore <= 70 && "나쁘지 않네요!"}
-                                {angerScore > 70 && "폭발하기 직전이시네요..!"}
-                            </div>
-                        </div>
-
+                        {renderSlider(TestStep.STEP2_ANGER, angerScore)}
                         {renderButtons(TestStep.STEP2_ANGER)}
                     </section>
                 </main>
@@ -188,39 +221,7 @@ export function Test({onBack, onNext}: TestProps) {
                         <h2 className={style.questionTitle}>
                             스트레스 정도를 평가해주세요.
                         </h2>
-
-                        <div className={style.sliderContainer}>
-                            <div className={style.sliderWrapper}>
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="100"
-                                    value={stressScore}
-                                    onChange={handleSliderChange}
-                                    className={style.slider}
-                                    onMouseDown={() => setIsDragging(true)}
-                                    onMouseUp={() => setIsDragging(false)}
-                                    onTouchStart={() => setIsDragging(true)}
-                                    onTouchEnd={() => setIsDragging(false)}
-                                />
-                                <div className={style.sliderLabels}>
-                                    <span>0</span>
-                                    <span>50</span>
-                                    <span>100</span>
-                                </div>
-                            </div>
-
-                            <div className={`${style.scoreDisplay} ${isDragging ? style.active : ''}`}>
-                                {stressScore}
-                            </div>
-
-                            <div className={style.scoreDescription}>
-                                {stressScore <= 30 && "컨디션이 좋은가봐요!"}
-                                {stressScore > 30 && stressScore <= 70 && "나쁘지 않네요!"}
-                                {stressScore > 70 && "폭발하기 직전이시네요..!"}
-                            </div>
-                        </div>
-
+                        {renderSlider(TestStep.STEP3_STRESS_LEVEL, stressScore)}
                         {renderButtons(TestStep.STEP3_STRESS_LEVEL)}
                     </section>
                 </main>
@@ -232,39 +233,7 @@ export function Test({onBack, onNext}: TestProps) {
                         <h2 className={style.questionTitle}>
                             얼마나 배고프신가요?
                         </h2>
-
-                        <div className={style.sliderContainer}>
-                            <div className={style.sliderWrapper}>
-                                <input
-                                    type="range"
-                                    min="0"
-                                    max="100"
-                                    value={appetiteScore}
-                                    onChange={handleSliderChange}
-                                    className={style.slider}
-                                    onMouseDown={() => setIsDragging(true)}
-                                    onMouseUp={() => setIsDragging(false)}
-                                    onTouchStart={() => setIsDragging(true)}
-                                    onTouchEnd={() => setIsDragging(false)}
-                                />
-                                <div className={style.sliderLabels}>
-                                    <span>0</span>
-                                    <span>50</span>
-                                    <span>100</span>
-                                </div>
-                            </div>
-
-                            <div className={`${style.scoreDisplay} ${isDragging ? style.active : ''}`}>
-                                {appetiteScore}
-                            </div>
-
-                            <div className={style.scoreDescription}>
-                                {appetiteScore <= 30 && "몰래 뭐드셨어요?"}
-                                {appetiteScore > 30 && appetiteScore <= 70 && "적당해보입니다!"}
-                                {appetiteScore > 70 && "얼마나 굶은거에요..?"}
-                            </div>
-                        </div>
-
+                        {renderSlider(TestStep.STEP4_APPETITE_DEGREE, appetiteScore)}
                         {renderButtons(TestStep.STEP4_APPETITE_DEGREE)}
                     </section>
                 </main>
