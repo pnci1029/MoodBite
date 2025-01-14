@@ -3,6 +3,7 @@ package com.example.moodbite.api.test.service
 import com.example.moodbite.api.executed.dto.ChatRequest
 import com.example.moodbite.api.executed.dto.ChatResponse
 import com.example.moodbite.config.OpenAiConfig
+import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpEntity
 import org.springframework.stereotype.Service
@@ -11,14 +12,18 @@ import org.springframework.web.client.RestTemplate
 @Service
 class TestService (
     private val openAiConfig: OpenAiConfig,
+
 ){
     @Value("\${openai.model}")
     private lateinit var model: String
 
     @Value("\${openai.api.url}")
     private lateinit var url: String
+    private val logger = KotlinLogging.logger {}
 
     fun getResult(prompt: String):String {
+        logger.info { "prompt: $prompt" }
+
         val headers = openAiConfig.httpHeaders()
         // Create request
         val chatRequest = ChatRequest(model, prompt)
