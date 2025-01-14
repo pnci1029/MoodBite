@@ -13,6 +13,7 @@ export function Test({onBack, onNext}: TestProps) {
     const [tiredScore, setTiredScore] = useState(50);
     const [angerScore, setAngerScore] = useState(50);
     const [stressScore, setStressScore] = useState(50);
+    const [appetiteScore, setAppetiteScore] = useState(50);
     const [isDragging, setIsDragging] = useState(false);
 
     console.log(testStep)
@@ -27,6 +28,8 @@ export function Test({onBack, onNext}: TestProps) {
                 return setAngerScore(Number(e.target.value));
             case TestStep.STEP3_STRESS_LEVEL:
                 return setStressScore(Number(e.target.value));
+            case TestStep.STEP4_APPETITE_DEGREE:
+                return setAppetiteScore(Number(e.target.value));
 
         }
 
@@ -39,6 +42,8 @@ export function Test({onBack, onNext}: TestProps) {
             case TestStep.STEP2_ANGER:
                 return setTestStep(TestStep.STEP3_STRESS_LEVEL);
             case TestStep.STEP3_STRESS_LEVEL:
+                return setTestStep(TestStep.STEP4_APPETITE_DEGREE);
+            case TestStep.STEP4_APPETITE_DEGREE:
                 return setTestStep(TestStep.STEP4_APPETITE_DEGREE);
         }
     }
@@ -193,6 +198,55 @@ export function Test({onBack, onNext}: TestProps) {
                                 {stressScore <= 30 && "컨디션이 좋은가봐요!"}
                                 {stressScore > 30 && stressScore <= 70 && "나쁘지 않네요!"}
                                 {stressScore > 70 && "폭발하기 직전이시네요..!"}
+                            </div>
+                        </div>
+
+                        <button
+                            className={style.nextButton}
+                            onClick={() => handleNextScore(TestStep.STEP4_APPETITE_DEGREE)}
+                        >
+                            다음
+                        </button>
+                    </section>
+                </main>
+            )}
+
+            {testStep === TestStep.STEP4_APPETITE_DEGREE && (
+                <main className={style.mainContent}>
+                    <section className={style.testSection}>
+                        <h2 className={style.questionTitle}>
+                            얼마나 배고프신가요?
+                        </h2>
+
+                        <div className={style.sliderContainer}>
+                            <div className={style.sliderWrapper}>
+                                <input
+                                    type="range"
+                                    min="0"
+                                    max="100"
+                                    value={appetiteScore}
+                                    onChange={handleSliderChange}
+                                    className={style.slider}
+                                    onMouseDown={() => setIsDragging(true)}
+                                    onMouseUp={() => setIsDragging(false)}
+                                    onTouchStart={() => setIsDragging(true)}
+                                    onTouchEnd={() => setIsDragging(false)}
+                                />
+                                <div className={style.sliderLabels}>
+                                    <span>0</span>
+                                    <span>50</span>
+                                    <span>100</span>
+                                </div>
+                            </div>
+
+                            <div className={`${style.scoreDisplay} ${isDragging ? style.active : ''}`}>
+                                {appetiteScore}
+                            </div>
+
+                            <div className={style.scoreDescription}>
+                                {appetiteScore <= 30 && "몰래 뭐드셨어요?"}
+                                {appetiteScore > 30 && appetiteScore <= 70 && "적당해보입니다!"}
+                                {appetiteScore > 70 && "얼마나 굶은거에요..?"}
                             </div>
                         </div>
 
