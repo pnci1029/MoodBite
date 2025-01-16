@@ -44,26 +44,29 @@ class TestService(
     private fun generateCommand(
         dto: TestRequestDTO
     ) =  """
-            Based on a person's current condition scores (0-100):
-            - Tiredness Level: ${dto.tiredScore}/100
-            - Anger Level: ${dto.angerScore}/100
-            - Stress Level: ${dto.stressScore}/100
-            - Appetite Level: ${dto.appetiteScore}/100
-            
-            Please recommend 3 foods or dishes that would be most beneficial for this person's current state. 
-            Consider:
-            - Foods that help with energy levels if they're tired
-            - Calming foods if they're angry or stressed
-            - Easy-to-eat options if their appetite is low
-            - Comforting but healthy choices
-            
-            For each recommendation, please provide:
-            1. The name of the food/dish
-            2. Why it would be helpful for their current condition
-            3. Key nutrients or benefits
-            
-            Please keep each recommendation concise and practical.
-            """
+Based on a person's current condition scores (0-100):
+- Tiredness Level: ${dto.tiredScore}/100
+- Anger Level: ${dto.angerScore}/100
+- Stress Level: ${dto.stressScore}/100
+- Appetite Level: ${dto.appetiteScore}/100
 
+Please act as a sophisticated food recommendation system that has access to extensive data from various search engines (Google, DuckDuckGo, Naver, etc.) about popular dining options in Korea.
+
+Please recommend 3 dishes that are:
+- Easily accessible at local restaurants or convenience stores for office workers in Korea
+- Must be standard, single-item menu names (e.g., "삼겹살" is good, but "소고기 김치볶음밥" are not)
+- Can include ANY type of cuisine that's readily available (Korean, Western, Chinese, Japanese, Fusion, etc.)
+- Must be common menu names that any restaurant would recognize
+- Must be practical for lunch or dinner options
+
+Based on your extensive search results and the person's condition scores, provide 3 carefully selected single-item dish recommendations.
+Format the response as a JSON array with Korean names: ["음식1", "음식2", "음식3"]
+
+Remember: Keep each menu item as a simple, single dish name that would appear on a typical restaurant menu.
+Good examples: "삼겹살", "파스타", "마라탕", "우동", "피자"
+Bad examples: "치즈불닭볶음면", "소고기 김치볶음밥", "삼겹살 김치전골"
+
+Respond with ONLY the JSON array of 3 dish names in Korean, no additional explanation.
+"""
 
 }
