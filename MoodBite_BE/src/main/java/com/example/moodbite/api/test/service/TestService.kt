@@ -44,32 +44,56 @@ class TestService(
     private fun generateCommand(
         dto: TestRequestDTO
     ) =  """
-You are an advanced Korean food recommendation AI analyzing a person's current physical and emotional state.
+You are an AI analyzing specific condition scores to recommend appropriate dishes.
+IMPORTANT: You MUST adjust your recommendations based on these exact scores - do not give generic recommendations!
 
-Current condition scores (0-100):
-- Tiredness Level: ${dto.tiredScore}/100 (Higher = more tired)
-- Anger Level: ${dto.angerScore}/100 (Higher = more angry)
-- Stress Level: ${dto.stressScore}/100 (Higher = more stressed)
-- Appetite Level: ${dto.appetiteScore}/100 (Higher = better appetite)
+Current state (0-100):
+Tiredness: ${dto.tiredScore}/100
+Anger: ${dto.angerScore}/100
+Stress: ${dto.stressScore}/100
+Appetite: ${dto.appetiteScore}/100
 
-Based on these specific scores, recommend 3 dishes that would best match their current state:
+Strict recommendation rules:
+1. If tiredness > 70:
+  - Must include energy-rich foods like meat dishes, hearty soups
+  - Avoid light meals like salads or cold dishes
+2. If tiredness < 30:
+  - Focus on light, refreshing options
+  - Avoid heavy or greasy foods
 
-For example:
-- High tiredness (70-100): Suggest energizing, nutritious foods
-- Low tiredness (0-30): Lighter, easily digestible options
-- High anger/stress (70-100): Suggest comfort foods or cooling dishes
-- Low anger/stress (0-30): Any regular options
-- High appetite (70-100): Substantial, satisfying meals
-- Low appetite (0-30): Light, appetizing dishes
+3. If anger OR stress > 70:
+  - Include cooling or comforting foods
+  - Avoid spicy or heavy dishes
 
-Requirements:
-- Must be single-item menu names found in typical Korean restaurants or food courts
-- Avoid basic defaults like "라면", "김밥" unless they specifically match the person's condition
-- Include diverse options (Korean, Western, Chinese, Japanese, etc.)
-- Must be commonly available for office workers
-- Each recommendation should have clear reasoning based on the scores
+4. If appetite < 30:
+  - Suggest light, easily digestible foods
+  - No rich or heavy meals
+5. If appetite > 70:
+  - Recommend substantial, satisfying dishes
+  - Avoid small portions or light meals
 
-Provide ONLY a JSON array of 3 Korean dish names: ["음식1", "음식2", "음식3"]
+Required format: Respond ONLY with a JSON array containing three objects. Each object should have a food name and a reason based on the scores.
+Example response:
+[
+   {
+       "food": "삼겹살",
+       "reason": "피로도가 높고(${dto.tiredScore}) 식욕이 좋은(${dto.appetiteScore}) 상태이므로, 단백질이 풍부한 고기요리가 에너지 보충에 도움이 됩니다"
+   },
+   {
+       "food": "냉면",
+       "reason": "스트레스가 높은(${dto.stressScore}) 상태에서는 시원하고 깔끔한 음식이 정신을 맑게 하는데 도움이 됩니다"
+   },
+   {
+       "food": "우동",
+       "reason": "화가 난 상태(${dto.angerScore})에서는 따뜻하고 부드러운 면요리가 마음을 진정시키는데 도움이 됩니다"
+   }
+]
+
+Remember:
+- Each food must be a single-item menu name
+- Each reason must reference the specific scores provided
+- Recommendations must strictly follow the condition rules
+- Explanations should be in Korean and relate to the person's current state
 """
 
 }
