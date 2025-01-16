@@ -73,6 +73,14 @@ Strict recommendation rules:
   - Avoid small portions or light meals
 
 Required format: Respond ONLY with a JSON array containing three objects. Each object should have a food name and a reason based on the scores.
+
+IMPORTANT MENU NAMING RULES:
+- Use only the basic menu name without any modifiers
+- Remove ingredient specifications from the menu name
+Examples:
+✅ Correct: "된장국", "스파게티", "김치찌개"
+❌ Incorrect: "시금치 된장국", "스파게티 알리오올리오", "차돌박이 김치찌개"
+
 Example response:
 [
    {
@@ -90,7 +98,7 @@ Example response:
 ]
 
 Remember:
-- Each food must be a single-item menu name
+- Each food must be the most basic menu name without any modifiers
 - Each reason must reference the specific scores provided
 - Recommendations must strictly follow the condition rules
 - Explanations should be in Korean and relate to the person's current state
