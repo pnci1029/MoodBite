@@ -2,6 +2,7 @@ package com.example.moodbite.api.test.service
 
 import com.example.moodbite.api.executed.dto.ChatRequest
 import com.example.moodbite.api.executed.dto.ChatResponse
+import com.example.moodbite.api.test.dto.request.TestRequestDTO
 import com.example.moodbite.config.OpenAiConfig
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
@@ -21,10 +22,12 @@ class TestService (
     private lateinit var url: String
     private val logger = KotlinLogging.logger {}
 
-    fun getResult(prompt: String):String {
-        logger.info { "prompt: $prompt" }
+    fun getResult(dto: TestRequestDTO):String {
 
         val headers = openAiConfig.httpHeaders()
+
+        val prompt = ""
+
         // Create request
         val chatRequest = ChatRequest(model, prompt)
 
