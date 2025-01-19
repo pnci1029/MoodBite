@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {ArrowLeft} from 'lucide-react';
 import style from "../../style/test.module.scss";
-import {TestStep} from "../../types/test";
+import {MealTime, TestStep} from "../../types/test";
 import {useTestFunctions} from "./hooks/useTestFunctions";
 
 interface TestProps {
@@ -16,12 +16,28 @@ export function Test({onBack, onNext}: TestProps) {
     const [stressScore, setStressScore] = useState(50);
     const [appetiteScore, setAppetiteScore] = useState(50);
     const [isDragging, setIsDragging] = useState(false);
+    const [selectedMealTime, setSelectedMealTime] = useState<MealTime | null>(null);
+    const mealTimes: MealTime[] = ['아침', '점심', '저녁', '야식'];
 
     const {sliderLabels, defaultLabel} = useTestFunctions();
 
     const getCurrentLabels = (step: TestStep) => {
         return sliderLabels[step] || {min: "0", mid: "50", max: "100"};
     };
+
+    const renderMealTimeSelection = () => (
+        <div className={style.mealTimeContainer}>
+            {mealTimes.map((time) => (
+                <button
+                    key={time}
+                    className={`${style.mealTimeButton} ${selectedMealTime === time ? style.selected : ''}`}
+                    onClick={() => setSelectedMealTime(time)}
+                >
+                    {time}
+                </button>
+            ))}
+        </div>
+    );
 
     const renderSlider = (step: TestStep, value: number) => {
         const labels = getCurrentLabels(step);
@@ -61,10 +77,6 @@ export function Test({onBack, onNext}: TestProps) {
         );
     };
 
-    console.log(testStep)
-    console.log(tiredScore)
-    console.log(angerScore)
-    console.log(stressScore)
     const handleSliderChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         switch (testStep) {
             case TestStep.STEP1_TIREDNESS:
@@ -75,9 +87,9 @@ export function Test({onBack, onNext}: TestProps) {
                 return setStressScore(Number(e.target.value));
             case TestStep.STEP4_APPETITE_DEGREE:
                 return setAppetiteScore(Number(e.target.value));
-
+            // case TestStep.STEP5_MEAL_TIME:
+            //     return setSelectedMealTime(e.target.value);
         }
-
     };
 
     const handlePrevScore = (currentStep: TestStep) => {
@@ -88,6 +100,8 @@ export function Test({onBack, onNext}: TestProps) {
                 return setTestStep(TestStep.STEP2_ANGER);
             case TestStep.STEP4_APPETITE_DEGREE:
                 return setTestStep(TestStep.STEP3_STRESS_LEVEL);
+            case TestStep.STEP5_MEAL_TIME:
+                return setTestStep(TestStep.STEP4_APPETITE_DEGREE);
         }
     }
 
@@ -100,9 +114,25 @@ export function Test({onBack, onNext}: TestProps) {
             case TestStep.STEP3_STRESS_LEVEL:
                 return setTestStep(TestStep.STEP4_APPETITE_DEGREE);
             case TestStep.STEP4_APPETITE_DEGREE:
-                return setTestStep(TestStep.STEP4_APPETITE_DEGREE);
+                return setTestStep(TestStep.STEP5_MEAL_TIME);
+            case TestStep.STEP5_MEAL_TIME:
+            //     return setTestStep(TestStep.STEP6_MEAL_TIME);
+            // case TestStep.STEP6_MEAL_TIME:
+            //     if (selectedMealTime) {
+            //         // 여기서 최종 결과를 처리할 수 있습니다
+            //         onNext(calculateFinalScore());
+            //     }
+            //     return;
         }
     }
+
+
+    const canProceedToNext = () => {
+        if (testStep === TestStep.STEP5_MEAL_TIME) {
+            return selectedMealTime !== null;
+        }
+        return true;
+    };
 
     const renderButtons = (currentStep: TestStep) => (
         <div className={style.buttonContainer}>
@@ -117,15 +147,15 @@ export function Test({onBack, onNext}: TestProps) {
             <button
                 className={style.nextButton}
                 onClick={() => handleNextScore(currentStep)}
+                disabled={!canProceedToNext()}
             >
-                다음
+                {currentStep === TestStep.STEP5_MEAL_TIME ? '완료' : '다음'}
             </button>
         </div>
     );
 
     return (
         <div className={style.container}>
-            {/* 상단 헤더 */}
             <header className={style.header}>
                 <div className={style.headerContent}>
                     <button
@@ -138,7 +168,6 @@ export function Test({onBack, onNext}: TestProps) {
                 </div>
             </header>
 
-            {/* 메인 콘텐츠 */}
             {testStep === TestStep.STEP1_TIREDNESS && (
                 <main className={style.mainContent}>
                     <section className={style.testSection}>
@@ -157,7 +186,6 @@ export function Test({onBack, onNext}: TestProps) {
                         <h2 className={style.questionTitle}>
                             지금 예민한 상태인가요?
                         </h2>
-
                         {renderSlider(TestStep.STEP2_ANGER, angerScore)}
                         {renderButtons(TestStep.STEP2_ANGER)}
                     </section>
@@ -184,6 +212,18 @@ export function Test({onBack, onNext}: TestProps) {
                         </h2>
                         {renderSlider(TestStep.STEP4_APPETITE_DEGREE, appetiteScore)}
                         {renderButtons(TestStep.STEP4_APPETITE_DEGREE)}
+                    </section>
+                </main>
+            )}
+
+            {testStep === TestStep.STEP5_MEAL_TIME && (
+                <main className={style.mainContent}>
+                    <section className={style.testSection}>
+                        <h2 className={style.questionTitle}>
+                            언제 드실 예정인가요?
+                        </h2>
+                        {renderMealTimeSelection()}
+                        {renderButtons(TestStep.STEP5_MEAL_TIME)}
                     </section>
                 </main>
             )}
