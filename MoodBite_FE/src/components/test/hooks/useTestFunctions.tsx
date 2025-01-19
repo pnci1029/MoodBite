@@ -7,7 +7,6 @@ export function useTestFunctions() {
         max: string;
     }
 
-// Record 유틸리티 타입을 사용하여 타입 안전성 확보
     const sliderLabels: Record<TestStep, SliderLabel> = {
         [TestStep.STEP1_TIREDNESS]: {
             min: "전혀 피곤하지 않음",
@@ -29,7 +28,7 @@ export function useTestFunctions() {
             mid: "보통",
             max: "매우 고픔"
         },
-        [TestStep.STEP5_LAST_MEAL_MENU]: {
+        [TestStep.STEP5_MEAL_TIME]: {
             min: "0",
             mid: "50",
             max: "100"
