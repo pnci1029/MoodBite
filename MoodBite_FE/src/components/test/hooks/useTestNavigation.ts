@@ -20,6 +20,8 @@ export function useTestNavigation(
                 return setTestStep(TestStep.STEP3_STRESS_LEVEL);
             case TestStep.STEP5_MEAL_TIME:
                 return setTestStep(TestStep.STEP4_APPETITE_DEGREE);
+            case TestStep.STEP6_BUDGET:
+                return setTestStep(TestStep.STEP5_MEAL_TIME);
         }
     };
 
@@ -43,6 +45,8 @@ export function useTestNavigation(
             case TestStep.STEP4_APPETITE_DEGREE:
                 return setTestStep(TestStep.STEP5_MEAL_TIME);
             case TestStep.STEP5_MEAL_TIME:
+                return setTestStep(TestStep.STEP6_BUDGET);
+            case TestStep.STEP6_BUDGET:
                 if (selectedMealTime) {
                     const finalScore = calculateFinalScore(scores);
                     onComplete(finalScore);
@@ -66,6 +70,6 @@ export function useTestNavigation(
         handlePrevScore,
         handleNextScore,
         isFirstStep: testStep === TestStep.STEP1_TIREDNESS,
-        isLastStep: testStep === TestStep.STEP5_MEAL_TIME,
+        isLastStep: testStep === TestStep.STEP6_BUDGET,
     };
 };
