@@ -97,6 +97,16 @@ export function Test({onBack, onNext}: TestProps) {
                     />
                 )}
 
+                {testStep === TestStep.STEP6_BUDGET && (
+                    <SliderQuestion
+                        title="식사 예산은 어느정도인가요?"
+                        value={scores.budget}
+                        onChange={setters.setBudgetScore}
+                        testStep={testStep}
+                        labels={getCurrentLabels(testStep)}
+                    />
+                )}
+
                 <NavigationButtons
                     currentStep={testStep}
                     onPrev={() => handlePrevScore(testStep)}
