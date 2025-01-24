@@ -11,12 +11,15 @@ export enum TestStep {
   STEP10_DINING_WITH = "STEP10_DINING_WITH",
 
   // 선호도
-  STEP20_CUISINE_TYPE = "STEP20_CUISINE_TYPE", // 선호 음식
-  STEP21_LAST_EATEN = "STEP21_LAST_EATEN", // 최근 먹은 음식 ( 이거 제외)
+  // STEP20_CUISINE_TYPE = "STEP20_CUISINE_TYPE", // 선호 음식
+  // STEP21_LAST_EATEN = "STEP21_LAST_EATEN", // 최근 먹은 음식 ( 이거 제외)
 
 }
 
 export type MealTime = '아침' | '점심' | '저녁' | '야식';
+
+export type DiningOption = 'ALONE' | 'FRIENDS' | 'FAMILY' | 'DATE' | 'COWORKERS' | 'ETC';
+
 
 // 신체적 상태:
 // 피로도 수준 (1-10 척도)
