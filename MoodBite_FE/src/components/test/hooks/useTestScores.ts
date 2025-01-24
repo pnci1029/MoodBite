@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {MealTime} from "../../../types/test";
+import {DiningOption, MealTime} from "../../../types/test";
 
 export function useTestScores() {
     const [tiredScore, setTiredScore] = useState(50);
@@ -8,6 +8,7 @@ export function useTestScores() {
     const [appetiteScore, setAppetiteScore] = useState(50);
     const [budgetScore, setBudgetScore] = useState(1000);
     const [selectedMealTime, setSelectedMealTime] = useState<MealTime | null>(null);
+    const [dining, setDining] = useState<DiningOption | null>(null);
 
     return {
         scores: {
@@ -15,14 +16,16 @@ export function useTestScores() {
             anger: angerScore,
             stress: stressScore,
             appetite: appetiteScore,
-            budget: budgetScore
+            budget: budgetScore,
+            dining: dining
         },
         setters: {
             setTiredScore,
             setAngerScore,
             setStressScore,
             setAppetiteScore,
-            setBudgetScore
+            setBudgetScore,
+            setDining
         },
         mealTime: {
             selectedMealTime,

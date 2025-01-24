@@ -47,6 +47,8 @@ export function useTestNavigation(
             case TestStep.STEP5_MEAL_TIME:
                 return setTestStep(TestStep.STEP6_BUDGET);
             case TestStep.STEP6_BUDGET:
+                return setTestStep(TestStep.STEP10_DINING_WITH);
+            case TestStep.STEP10_DINING_WITH:
                 if (selectedMealTime) {
                     const finalScore = calculateFinalScore(scores);
                     onComplete(finalScore);
