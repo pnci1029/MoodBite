@@ -33,10 +33,10 @@ export function useTestFunctions() {
             mid: "50",
             max: "100"
         },
-        [TestStep.STEP6_LAST_MEAL_TIME]: {
-            min: "0",
-            mid: "50",
-            max: "100"
+        [TestStep.STEP6_BUDGET]: {
+            min: "1000",
+            mid: "20000",
+            max: "40000"
         },
         [TestStep.STEP7_ALLERGY]: {
             min: "0",
