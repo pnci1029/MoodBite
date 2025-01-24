@@ -8,6 +8,7 @@ import {NavigationButtons} from "./NavigationButtons";
 import {useTestNavigation} from "./hooks/useTestNavigation";
 import {useTestScores} from "./hooks/useTestScores";
 import {HeaderWithBack} from "../common/HeaderWithBack";
+import {DiningQuestion} from "./DiningQuestion";
 
 interface TestProps {
     onBack: () => void;
@@ -44,6 +45,8 @@ export function Test({onBack, onNext}: TestProps) {
     const handleNext = () => {
         handleNextScore(testStep, scores, selectedMealTime);
     };
+
+    console.log(scores.dining)
 
     return (
         <div className={style.container}>
@@ -104,6 +107,13 @@ export function Test({onBack, onNext}: TestProps) {
                         onChange={setters.setBudgetScore}
                         testStep={testStep}
                         labels={getCurrentLabels(testStep)}
+                    />
+                )}
+
+                {testStep === TestStep.STEP10_DINING_WITH && (
+                    <DiningQuestion
+                        selectedOption={scores.dining}
+                        onOptionSelect={setters.setDining}
                     />
                 )}
 
