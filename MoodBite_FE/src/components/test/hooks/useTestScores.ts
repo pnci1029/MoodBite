@@ -6,6 +6,7 @@ export function useTestScores() {
     const [angerScore, setAngerScore] = useState(50);
     const [stressScore, setStressScore] = useState(50);
     const [appetiteScore, setAppetiteScore] = useState(50);
+    const [budgetScore, setBudgetScore] = useState(1000);
     const [selectedMealTime, setSelectedMealTime] = useState<MealTime | null>(null);
 
     return {
@@ -13,13 +14,15 @@ export function useTestScores() {
             tired: tiredScore,
             anger: angerScore,
             stress: stressScore,
-            appetite: appetiteScore
+            appetite: appetiteScore,
+            budget: budgetScore
         },
         setters: {
             setTiredScore,
             setAngerScore,
             setStressScore,
-            setAppetiteScore
+            setAppetiteScore,
+            setBudgetScore
         },
         mealTime: {
             selectedMealTime,
