@@ -38,11 +38,6 @@ export function useTestFunctions() {
             mid: "20000",
             max: "40000"
         },
-        [TestStep.STEP7_ALLERGY]: {
-            min: "0",
-            mid: "50",
-            max: "100"
-        },
         [TestStep.STEP10_DINING_WITH]: {
             min: "0",
             mid: "50",

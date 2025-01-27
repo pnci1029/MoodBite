@@ -5,7 +5,7 @@ export enum TestStep {
   STEP4_APPETITE_DEGREE = "STEP4_APPETITE_DEGREE",
   STEP5_MEAL_TIME = 'STEP5_MEAL_TIME',
   STEP6_BUDGET = "STEP6_BUDGET",
-  STEP7_ALLERGY = "STEP7_ALLERGY",
+  // STEP7_ALLERGY = "STEP7_ALLERGY",
 
   // 상황
   STEP10_DINING_WITH = "STEP10_DINING_WITH",
@@ -19,6 +19,27 @@ export enum TestStep {
 export type MealTime = '아침' | '점심' | '저녁' | '야식';
 
 export type DiningOption = 'ALONE' | 'FRIENDS' | 'FAMILY' | 'DATE' | 'COWORKERS' | 'ETC';
+
+export interface TestResultPostDTO{
+  scores: {
+    tired: number;
+    anger: number;
+    stress: number;
+    appetite: number;
+    budget: number;
+    dining: DiningOption;
+  };
+  mealTime: string | null;
+}
+
+export interface Scores {
+  tired: number;
+  anger: number;
+  stress: number;
+  appetite: number;
+  budget: number;
+  dining: DiningOption | null;
+}
 
 
 // 신체적 상태:

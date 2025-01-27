@@ -1,11 +1,12 @@
-import { useState } from 'react';
-import {MealTime, TestStep} from '../../../types/test';
+import {useState} from 'react';
+import {MealTime, Scores, TestStep} from '../../../types/test';
 
 interface Args {
     onComplete: (score: number) => void;
 }
+
 export function useTestNavigation(
-    {onComplete}:Args
+    {onComplete}: Args
 ) {
 
     const [testStep, setTestStep] = useState(TestStep.STEP1_TIREDNESS);
@@ -22,17 +23,14 @@ export function useTestNavigation(
                 return setTestStep(TestStep.STEP4_APPETITE_DEGREE);
             case TestStep.STEP6_BUDGET:
                 return setTestStep(TestStep.STEP5_MEAL_TIME);
+            case TestStep.STEP10_DINING_WITH:
+                return setTestStep(TestStep.STEP6_BUDGET);
         }
     };
 
     const handleNextScore = (
         currentStep: TestStep,
-        scores: {
-            tired: number;
-            anger: number;
-            stress: number;
-            appetite: number;
-        },
+        scores: Scores,
         selectedMealTime: MealTime | null
     ) => {
         switch (currentStep) {
@@ -57,14 +55,9 @@ export function useTestNavigation(
         }
     };
 
-    const calculateFinalScore = (scores: {
-        tired: number;
-        anger: number;
-        stress: number;
-        appetite: number;
-    }) => {
-        const { tired, anger, stress, appetite } = scores;
-        return (tired + anger + stress + appetite) / 4;
+    const calculateFinalScore = (scores: Scores) => {
+        const {tired, anger, stress, appetite, budget} = scores;
+        return (tired + anger + stress + appetite + budget) / 5;
     };
 
     return {
@@ -72,6 +65,6 @@ export function useTestNavigation(
         handlePrevScore,
         handleNextScore,
         isFirstStep: testStep === TestStep.STEP1_TIREDNESS,
-        isLastStep: testStep === TestStep.STEP6_BUDGET,
+        isLastStep: testStep === TestStep.STEP10_DINING_WITH,
     };
 };
