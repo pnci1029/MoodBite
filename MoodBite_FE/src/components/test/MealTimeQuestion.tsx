@@ -1,5 +1,5 @@
 import {MealTime} from "../../types/test";
-import style from "../../style/test.module.scss";
+import style from "../../style/common/questionOption.module.scss";
 
 interface Args {
     selectedTime: MealTime | null;

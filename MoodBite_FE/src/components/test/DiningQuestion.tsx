@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "../../style/test.module.scss";
+import style from "../../style/common/questionOption.module.scss";
 import {DiningOption} from "../../types/test";
 
 

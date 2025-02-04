@@ -1,6 +1,6 @@
 import React from "react";
 import { TestStep } from "../../types/test";
-import style from "../../style/test.module.scss"
+import style from "../../style/common/sliderQuestion.module.scss"
 
 interface Args {
     title: string;

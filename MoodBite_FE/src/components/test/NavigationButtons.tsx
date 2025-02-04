@@ -1,5 +1,5 @@
 import React from 'react';
-import style from "../../style/test.module.scss";
+import style from "../../style/common/buttons.module.scss";
 import {TestStep} from "../../types/test";
 
 interface Args {
