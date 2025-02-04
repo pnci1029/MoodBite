@@ -1,6 +1,6 @@
 import React from 'react';
 import style from "../../style/test.module.scss";
-import {TestStep} from "../../types/test";
+import {TestResultPostDTO, TestStep} from "../../types/test";
 import {useTestFunctions} from "./hooks/useTestFunctions";
 import {SliderQuestion} from "./SliderQuestion";
 import {MealTimeQuestion} from "./MealTimeQuestion";
@@ -9,6 +9,7 @@ import {useTestNavigation} from "./hooks/useTestNavigation";
 import {useTestScores} from "./hooks/useTestScores";
 import {HeaderWithBack} from "../common/HeaderWithBack";
 import {DiningQuestion} from "./DiningQuestion";
+import {useTestSubmit} from "./hooks/useTestSubmit";
 
 interface TestProps {
     onBack: () => void;
@@ -17,6 +18,7 @@ interface TestProps {
 
 export function Test({onBack, onNext}: TestProps) {
     const { sliderLabels } = useTestFunctions();
+    const { submitTestResult } = useTestSubmit()
     const {
         testStep,
         handlePrevScore,
@@ -36,7 +38,7 @@ export function Test({onBack, onNext}: TestProps) {
     };
 
     const canProceedToNext = () => {
-        if (testStep === TestStep.STEP5_MEAL_TIME) {
+        if (testStep === TestStep.STEP10_DINING_WITH) {
             return selectedMealTime !== null;
         }
         return true;
@@ -44,9 +46,19 @@ export function Test({onBack, onNext}: TestProps) {
 
     const handleNext = () => {
         handleNextScore(testStep, scores, selectedMealTime);
+
+        if (isLastStep) {
+            const dto:TestResultPostDTO = {
+            // @ts-ignore
+                scores: scores,
+                mealTime: selectedMealTime
+            }
+            console.log(scores)
+            console.log(selectedMealTime)
+            submitTestResult(dto).then()
+        }
     };
 
-    console.log(scores.dining)
 
     return (
         <div className={style.container}>
