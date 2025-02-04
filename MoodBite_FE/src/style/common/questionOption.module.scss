@@ -1,0 +1,70 @@
+.mealTimeContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+.mealTimeButton {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: #f5f5f5;
+  }
+
+  &.selected {
+    background: #007AFF;
+    color: white;
+    border-color: #007AFF;
+  }
+}
+
+
+//
+.questionContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 1rem;
+
+  h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+  }
+}
+
+.optionsContainer {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.optionButton {
+  padding: 1rem;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  background: white;
+  font-size: 1rem;
+  transition: all 0.2s;
+
+  &:hover {
+    border-color: #666;
+  }
+
+  &.selected {
+    background: #007aff;
+    color: white;
+    border-color: #007aff;
+  }
+}
