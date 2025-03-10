@@ -5,17 +5,11 @@ import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpHeaders
 import org.springframework.http.MediaType
-import org.springframework.web.client.RestTemplate
 
 @Configuration
 class OpenAiConfig {
     @Value("\${openai.api.key}")
     private lateinit var secretKey: String
-
-    @Bean
-    fun restTemplate(): RestTemplate {
-        return RestTemplate()
-    }
 
     @Bean
     fun httpHeaders(): HttpHeaders {
