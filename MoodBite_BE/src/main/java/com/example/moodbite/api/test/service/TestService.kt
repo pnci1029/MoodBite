@@ -4,6 +4,7 @@ import com.example.moodbite.api.executed.dto.ChatRequest
 import com.example.moodbite.api.executed.dto.ChatResponse
 import com.example.moodbite.api.test.dto.request.TestRequestDTO
 import com.example.moodbite.config.OpenAiConfig
+import com.example.moodbite.config.OpenRouterConfig
 import mu.KotlinLogging
 import org.springframework.beans.factory.annotation.Value
 import org.springframework.http.HttpEntity
@@ -13,7 +14,7 @@ import org.springframework.web.client.RestTemplate
 @Service
 class TestService(
     private val openAiConfig: OpenAiConfig,
-
+    private val openRouterConfig: OpenRouterConfig,
     ) {
     @Value("\${openai.model}")
     private lateinit var model: String
@@ -24,15 +25,16 @@ class TestService(
 
     fun getResult(dto: TestRequestDTO): String {
 
-        val headers = openAiConfig.httpHeaders()
+        val gptHeaders = openAiConfig.httpHeaders()
+        val openRouterHeaders = openRouterConfig.httpHeaders()
 
-        val prompt = generateCommand(dto)
-
+//        val prompt = generateCommand(dto)
+        val prompt = "hi there!"
         // Create request
         val chatRequest = ChatRequest(model, prompt)
 
         // 통신을 위한 RestTemplate 구성하기
-        val requestEntity = HttpEntity(chatRequest, headers)
+        val requestEntity = HttpEntity(chatRequest, gptHeaders)
 
         val restTemplate = RestTemplate()
         val response = restTemplate.postForObject(url, requestEntity, ChatResponse::class.java)
