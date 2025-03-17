@@ -30,6 +30,7 @@ export function Test({onBack, onNext}: TestProps) {
     const {
         scores,
         setters,
+        dining:{dining, setDining},
         mealTime: { selectedMealTime, setSelectedMealTime }
     } = useTestScores();
 
@@ -51,6 +52,7 @@ export function Test({onBack, onNext}: TestProps) {
             const dto:TestResultPostDTO = {
             // @ts-ignore
                 scores: scores,
+                dining: dining,
                 mealTime: selectedMealTime
             }
             console.log(scores)
@@ -124,8 +126,8 @@ export function Test({onBack, onNext}: TestProps) {
 
                 {testStep === TestStep.STEP10_DINING_WITH && (
                     <DiningQuestion
-                        selectedOption={scores.dining}
-                        onOptionSelect={setters.setDining}
+                        selectedOption={dining}
+                        onOptionSelect={setDining}
                     />
                 )}
 
