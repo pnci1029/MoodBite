@@ -27,8 +27,8 @@ export interface TestResultPostDTO{
     stress: number;
     appetite: number;
     budget: number;
-    dining: DiningOption;
   };
+  dining: DiningOption;
   mealTime: string | null;
 }
 
@@ -38,7 +38,7 @@ export interface Scores {
   stress: number;
   appetite: number;
   budget: number;
-  dining: DiningOption | null;
+  // dining: DiningOption | null;
 }
 
 
