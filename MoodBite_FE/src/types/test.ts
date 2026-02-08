@@ -16,7 +16,7 @@ export enum TestStep {
 
 }
 
-export type MealTime = '아침' | '점심' | '저녁' | '야식';
+export type MealTime = 'MORNING' | 'LUNCH' | 'DINNER' | 'MIDNIGHT_SNACK';
 
 export type DiningOption = 'ALONE' | 'FRIENDS' | 'FAMILY' | 'DATE' | 'COWORKERS' | 'ETC';
 
