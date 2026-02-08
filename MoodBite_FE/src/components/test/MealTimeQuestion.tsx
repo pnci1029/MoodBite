@@ -9,10 +9,10 @@ interface Args {
 
 export function MealTimeQuestion({ selectedTime, onTimeSelect }: Args) {
     const mealTimes = [
-        { id: '아침', label: '아침', emoji: '🌅' },
-        { id: '점심', label: '점심', emoji: '☀️' },
-        { id: '저녁', label: '저녁', emoji: '🌙' },
-        { id: '야식', label: '야식', emoji: '🌃' }
+        { id: 'MORNING', label: '아침', emoji: '🌅' },
+        { id: 'LUNCH', label: '점심', emoji: '☀️' },
+        { id: 'DINNER', label: '저녁', emoji: '🌙' },
+        { id: 'MIDNIGHT_SNACK', label: '야식', emoji: '🌃' }
     ];
 
     return (
