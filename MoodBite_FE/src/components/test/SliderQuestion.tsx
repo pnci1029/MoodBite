@@ -87,6 +87,7 @@ export function SliderQuestion({ title, value, onChange, testStep, labels }: Arg
                         min={minValue}
                         max={maxValue}
                         value={value}
+                        step={isBudgetStep ? 100 : 1}
                         onChange={(e) => onChange(Number(e.target.value))}
                         className={style.slider}
                         style={getSliderStyle()}

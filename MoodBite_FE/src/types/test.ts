@@ -29,7 +29,7 @@ export interface TestResultPostDTO{
     budget: number;
   };
   dining: DiningOption;
-  mealTime: string | null;
+  mealTime: MealTime | null;
 }
 
 export interface Scores {

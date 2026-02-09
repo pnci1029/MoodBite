@@ -34,9 +34,9 @@ export function useTestFunctions() {
             max: "100"
         },
         [TestStep.STEP6_BUDGET]: {
-            min: "1000",
-            mid: "20000",
-            max: "40000"
+            min: "1,000원",
+            mid: "20,000원",
+            max: "40,000원"
         },
         [TestStep.STEP10_DINING_WITH]: {
             min: "0",

@@ -13,7 +13,7 @@ import {useTestSubmit} from "./hooks/useTestSubmit";
 
 interface TestProps {
     onBack: () => void;
-    onNext: (score: number) => void;
+    onNext: (testResult: TestResultPostDTO, aiRecommendation?: string) => void;
 }
 
 export function Test({onBack, onNext}: TestProps) {
@@ -45,19 +45,23 @@ export function Test({onBack, onNext}: TestProps) {
         return true;
     };
 
-    const handleNext = () => {
-        handleNextScore(testStep, scores, selectedMealTime);
-
+    const handleNext = async () => {
         if (isLastStep) {
-            const dto:TestResultPostDTO = {
-            // @ts-ignore
+            const dto: TestResultPostDTO = {
                 scores: scores,
                 dining: dining,
                 mealTime: selectedMealTime
+            };
+            
+            try {
+                const response = await submitTestResult(dto);
+                onNext(dto, response);
+            } catch (error) {
+                console.error('Error submitting test result:', error);
+                onNext(dto);
             }
-            console.log(scores)
-            console.log(selectedMealTime)
-            submitTestResult(dto).then()
+        } else {
+            handleNextScore(testStep, scores, selectedMealTime);
         }
     };
 
