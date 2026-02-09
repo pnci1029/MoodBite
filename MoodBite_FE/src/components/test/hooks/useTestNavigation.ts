@@ -1,8 +1,8 @@
 import {useState} from 'react';
-import {MealTime, Scores, TestStep} from '../../../types/test';
+import {MealTime, Scores, TestStep, TestResultPostDTO} from '../../../types/test';
 
 interface Args {
-    onComplete: (score: number) => void;
+    onComplete: (testResult: TestResultPostDTO, aiRecommendation?: string) => void;
 }
 
 export function useTestNavigation(
@@ -31,7 +31,8 @@ export function useTestNavigation(
     const handleNextScore = (
         currentStep: TestStep,
         scores: Scores,
-        selectedMealTime: MealTime | null
+        selectedMealTime: MealTime | null,
+        dining: any = 'FRIENDS'
     ) => {
         switch (currentStep) {
             case TestStep.STEP1_TIREDNESS:
@@ -47,10 +48,7 @@ export function useTestNavigation(
             case TestStep.STEP6_BUDGET:
                 return setTestStep(TestStep.STEP10_DINING_WITH);
             case TestStep.STEP10_DINING_WITH:
-                if (selectedMealTime) {
-                    const finalScore = calculateFinalScore(scores);
-                    onComplete(finalScore);
-                }
+                // 이 단계에서는 Test 컴포넌트에서 직접 처리
                 return;
         }
     };

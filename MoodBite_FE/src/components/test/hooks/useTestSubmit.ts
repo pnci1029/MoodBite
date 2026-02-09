@@ -7,20 +7,18 @@ export function useTestSubmit() {
     const dispatch = useDispatch<any>();
 
     const submitTestResult = useCallback(
-        async (dto:TestResultPostDTO) => {
-
-        // @ts-ignore
-        if (window.confirm("결과를 확인하시겠습니까?")) {
-
-            try {
-                await dispatch(submitTestResultAsync(dto));
-                // @ts-ignore
-                alert(modeText[mode].successMessage);
-            } catch (e) {
-                console.log('error message : ', e)
+        async (dto: TestResultPostDTO): Promise<string | undefined> => {
+            if (window.confirm("결과를 확인하시겠습니까?")) {
+                try {
+                    const result = await dispatch(submitTestResultAsync(dto));
+                    return result.payload;
+                } catch (e) {
+                    console.error('Error submitting test result:', e);
+                    throw e;
+                }
             }
-        }
-    }, [dispatch]);
+            return undefined;
+        }, [dispatch]);
 
     return{
         submitTestResult

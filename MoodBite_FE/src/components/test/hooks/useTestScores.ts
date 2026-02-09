@@ -6,7 +6,7 @@ export function useTestScores() {
     const [angerScore, setAngerScore] = useState(50);
     const [stressScore, setStressScore] = useState(50);
     const [appetiteScore, setAppetiteScore] = useState(50);
-    const [budgetScore, setBudgetScore] = useState(1000);
+    const [budgetScore, setBudgetScore] = useState(10000);
     const [selectedMealTime, setSelectedMealTime] = useState<MealTime>('MORNING');
     const [dining, setDining] = useState<DiningOption>('FRIENDS');
 
