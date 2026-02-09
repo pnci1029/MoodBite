@@ -2,16 +2,36 @@ import React, {useState} from 'react';
 import {Heart, MapPin, Menu, User, X} from 'lucide-react';
 import style from "../../style/main.module.scss";
 import {Test} from "../test/Test";
+import {TestExecuted} from "../test/TestExecuted";
+import {TestResultPostDTO} from "../../types/test";
 
 export function Main() {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
     const [showTest, setShowTest] = useState(false);
+    const [showResult, setShowResult] = useState(false);
+    const [testResult, setTestResult] = useState<TestResultPostDTO | null>(null);
+    const [aiRecommendation, setAiRecommendation] = useState<string>('');
 
-    const handleTestComplete = (score: number) => {
-        // 테스트 완료 후의 로직을 여기에 구현
-        console.log('Test score:', score);
-        // 예: 다음 페이지로 이동하거나, 점수를 저장하거나 등
+    const handleTestComplete = (result: TestResultPostDTO, recommendation?: string) => {
+        setTestResult(result);
+        setAiRecommendation(recommendation || '');
+        setShowTest(false);
+        setShowResult(true);
     };
+
+    const handleBackFromResult = () => {
+        setShowResult(false);
+        setTestResult(null);
+        setAiRecommendation('');
+    };
+
+    if (showResult && testResult) {
+        return <TestExecuted
+            onBack={handleBackFromResult}
+            testResult={testResult}
+            aiRecommendation={aiRecommendation}
+        />;
+    }
 
     if (showTest) {
         return <Test
